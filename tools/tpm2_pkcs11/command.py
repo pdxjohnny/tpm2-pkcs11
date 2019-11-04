@@ -91,7 +91,7 @@ class Command(object):
 
     def generate_options(self, group_parser):
         '''Adds it's options to the group parser. The parser passed in is a result from
-        calling add_argument_group(ArgumentGroup): https://docs.python.org/2/library/argparse.html
+        calling add_argument_group(ArgumentGroup): https://docs.python.org/3/library/argparse.html
         Args:
             group_parser(): The parser to add options too.
         '''
