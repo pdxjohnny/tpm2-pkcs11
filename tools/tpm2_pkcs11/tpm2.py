@@ -7,27 +7,46 @@ import uuid
 
 from subprocess import Popen, PIPE
 
+from .tools import Tpm2Tools
 
 class Tpm2(object):
     def __init__(self, tmp):
         self._tmp = tmp
 
     def createprimary(self, ownerauth, objauth):
-        ctx = os.path.join(self._tmp, "context.out")
-        cmd = [
-            'tpm2_createprimary', '-p', '%s' % objauth, '-c', ctx, '-g',
-            'sha256', '-G', 'rsa'
-        ]
+        if True:
+            ctx = os.path.join(self._tmp, "context.out")
+            cmd = [
+                'tpm2_createprimary', '-p', '%s' % objauth, '-c', ctx, '-g',
+                'sha256', '-G', 'rsa'
+            ]
 
-        if ownerauth and len(ownerauth) > 0:
-            cmd.extend(['-P', ownerauth])
+            if ownerauth and len(ownerauth) > 0:
+                cmd.extend(['-P', ownerauth])
 
-        p = Popen(cmd, stdout=PIPE, stderr=PIPE, env=os.environ)
-        _, stderr = p.communicate()
-        if (p.wait()):
-            raise RuntimeError("Could not execute tpm2_createprimary: %s" %
-                               stderr)
-        return ctx
+            print(cmd, file=open("/tmp/f", "w"))
+            print(file=open("/tmp/f", "w"))
+            p = Popen(cmd, stdout=PIPE, stderr=PIPE, env=os.environ)
+            _, stderr = p.communicate()
+            if (p.wait()):
+                raise RuntimeError("Could not execute tpm2_createprimary: %s" %
+                                   stderr)
+            return ctx
+
+        # tpm2_createprimary context arguments:
+        # - p: key_auth_str = str(objauth)
+        # - c: context_file = ctx
+        # - g: halg = "sha256"
+        # - G: alg = "rsa"
+        # if ownerauth and len(ownerauth) > 0:
+        #   - P: parent.auth_str = ownerauth
+        Tpm2Tools.createprimary(
+            key_auth_str=str(objauth),
+            context_file=ctx,
+            halg="sha256",
+            alg="rsa",
+            parent_auth_str=ownerauth if ownerauth and len(ownerauth) > 0 else None,
+            )
 
     def evictcontrol(self, ownerauth, ctx):
 
