@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -xe
+
+rm -rf /tmp/pkcs11-store
+mkdir -p /tmp/pkcs11-store
+tpm2_ptool init --primary-auth=mypobjpin --path=/tmp/pkcs11-store

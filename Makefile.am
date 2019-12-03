@@ -127,7 +127,8 @@ check_PROGRAMS += \
     test/integration/pkcs-misc.int \
     test/integration/pkcs-crypt.int \
     test/integration/pkcs-keygen.int \
-    test/integration/pkcs-session-state.int
+    test/integration/pkcs-session-state.int \
+    test/integration/tpm2_ptool_init.int
 
 XFAIL_TESTS=test/unit/test_pkcs11
 

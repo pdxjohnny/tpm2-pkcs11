@@ -7,7 +7,7 @@ import uuid
 
 from subprocess import Popen, PIPE
 
-from .tools import Tpm2Tools
+# from .tools import Tpm2Tools
 
 class Tpm2(object):
     def __init__(self, tmp):
