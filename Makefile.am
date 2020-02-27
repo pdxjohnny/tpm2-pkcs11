@@ -98,7 +98,8 @@ integration_scripts = \
     test/integration/tls-tests.sh \
     test/integration/openssl.sh \
     test/integration/pkcs11-javarunner.sh.java \
-    test/integration/nss-tests.sh
+    test/integration/nss-tests.sh \
+    test/integration/freeradius.sh
 
 EXTRA_DIST += \
     $(integration_scripts) \
